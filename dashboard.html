@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Progress Dashboard | VITRUS</title>
+    <meta name="description" content="Track weight, measurements, strength PRs, body composition, and before/after photos in the VITRUS dashboard.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body data-page="dashboard">
+    <div class="noise"></div>
+    <main>
+      <section class="container page-hero">
+        <div class="section-header reveal">
+          <span class="eyebrow">Progress dashboard</span>
+          <h1 style="font-size:clamp(3rem,7vw,6rem)">Proof beats motivation.</h1>
+          <p class="lead">Charts, saved metrics, 3D body composition changes, and before/after comparison create a feedback loop you can trust.</p>
+        </div>
+      </section>
+
+      <section class="container section tight">
+        <div class="grid cols-3">
+          <article class="card chart-card reveal">
+            <h3>Weight trend</h3>
+            <div class="chart-wrap"><canvas id="weightChart"></canvas></div>
+          </article>
+          <article class="card chart-card reveal">
+            <h3>Strength PRs</h3>
+            <div class="chart-wrap"><canvas id="strengthChart"></canvas></div>
+          </article>
+          <article class="card chart-card reveal">
+            <h3>Measurements</h3>
+            <div class="chart-wrap"><canvas id="measurementChart"></canvas></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="container section tight">
+        <div class="form-grid">
+          <div class="composition-stage reveal">
+            <div class="three-stage" data-composition-three></div>
+            <div class="floating-chip"><span class="pulse-dot"></span><span>Body composition visualizer</span></div>
+          </div>
+          <aside class="grid">
+            <div class="card form-panel reveal">
+              <h2 style="font-size:clamp(2rem,4vw,3.8rem)">Adjust body fat</h2>
+              <p>The avatar shape updates to simulate how body composition changes over time.</p>
+              <div class="field">
+                <label for="bodyFat">Body fat: <span data-body-fat-output>18%</span></label>
+                <input id="bodyFat" data-body-fat type="range" min="8" max="38" value="18">
+              </div>
+              <div style="margin-top:18px">
+                <span class="mini-label">Transformation phase</span>
+                <div class="progress-bar"><span style="width:68%"></span></div>
+                <p>68% toward the current recomposition milestone.</p>
+              </div>
+            </div>
+
+            <div class="card form-panel reveal">
+              <h3>Log custom metric</h3>
+              <form class="tracker-row" data-progress-form>
+                <div class="field"><label for="metric">Metric</label><input id="metric" name="metric" placeholder="Squat 5RM" required></div>
+                <div class="field"><label for="value">Value</label><input id="value" name="value" placeholder="275 lb" required></div>
+                <button class="btn" type="submit">Save</button>
+              </form>
+              <div class="challenge-list" style="margin-top:18px" data-progress-list></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="container section">
+        <div class="section-header reveal">
+          <span class="eyebrow orange">Before / After</span>
+          <h2>Side-by-side visual accountability.</h2>
+          <p>Upload local photos to replace the placeholders. The files never leave your browser in this static demo.</p>
+        </div>
+        <div class="compare-grid">
+          <div class="card pad reveal">
+            <h3>Before</h3>
+            <div class="photo-slot" id="beforeSlot"></div>
+            <input data-photo-upload="#beforeSlot" type="file" accept="image/*" style="margin-top:14px">
+          </div>
+          <div class="card pad reveal">
+            <h3>After</h3>
+            <div class="photo-slot after" id="afterSlot"></div>
+            <input data-photo-upload="#afterSlot" type="file" accept="image/*" style="margin-top:14px">
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script type="module" src="assets/js/three-scenes.js"></script>
+    <script src="assets/js/dashboard.js" defer></script>
+  </body>
+</html>

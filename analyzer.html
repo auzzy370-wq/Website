@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3D Body & Form Analyzer | VITRUS</title>
+    <meta name="description" content="Upload a photo or simulate webcam pose estimation with a rotatable VITRUS 3D avatar and form correction feedback.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body data-page="analyzer">
+    <div class="noise"></div>
+    <main>
+      <section class="container page-hero">
+        <div class="section-header reveal">
+          <span class="eyebrow lime">3D Body & Form Analyzer</span>
+          <h1 style="font-size:clamp(3rem,7vw,6rem)">Turn form feedback into something you can see.</h1>
+          <p class="lead">This static demo simulates pose estimation. In production, connect MediaPipe, MoveNet, or a custom backend to map real keypoints onto the 3D avatar.</p>
+        </div>
+      </section>
+
+      <section class="container section tight">
+        <div class="form-grid">
+          <div class="analyzer-stage reveal">
+            <div class="three-stage" data-analyzer-three></div>
+            <div class="floating-chip"><span class="pulse-dot"></span><span>Avatar sync active</span></div>
+          </div>
+          <aside class="grid">
+            <div class="card form-panel reveal">
+              <h3>Upload or simulate capture</h3>
+              <div class="drop-zone">
+                <div>
+                  <p><strong>Upload a front or side photo</strong></p>
+                  <p>JPG/PNG preview is analyzed locally as a placeholder.</p>
+                  <input data-photo-input type="file" accept="image/*">
+                </div>
+              </div>
+              <button class="btn" style="margin-top:14px" data-simulate-webcam>Use webcam simulation</button>
+              <p data-analysis-status style="margin-top:14px">No capture analyzed yet.</p>
+            </div>
+
+            <div class="card form-panel reveal">
+              <h3>Avatar customization</h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="bodyType">Body type</label>
+                  <select id="bodyType" name="bodyType" data-avatar-option>
+                    <option value="male">Male</option>
+                    <option value="female" selected>Female</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="skinTone">Skin tone</label>
+                  <input id="skinTone" name="skinTone" type="color" value="#8f553f" data-avatar-option>
+                </div>
+                <div class="field">
+                  <label for="outfitColor">Outfit color</label>
+                  <input id="outfitColor" name="outfitColor" type="color" value="#23162f" data-avatar-option>
+                </div>
+                <div class="field">
+                  <label for="exercise">Exercise</label>
+                  <select id="exercise" data-analyzer-exercise>
+                    <option value="squat">Squat</option>
+                    <option value="pushup">Push-up</option>
+                    <option value="deadlift">Deadlift</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="card form-panel reveal">
+              <h3>Form corrections</h3>
+              <div class="result-panel" data-corrections></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script type="module" src="assets/js/three-scenes.js"></script>
+    <script src="assets/js/analyzer.js" defer></script>
+  </body>
+</html>
