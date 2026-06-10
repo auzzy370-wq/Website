@@ -228,21 +228,226 @@ const exerciseLabels = {
   burpee: "Burpee demo",
 };
 
+const poseLibrary = {
+  squat: {
+    cue: "knees track, hips descend",
+    a: {
+      head: [120, 54], neck: [120, 88], shoulderL: [82, 102], shoulderR: [158, 102],
+      elbowL: [72, 142], elbowR: [168, 142], handL: [92, 162], handR: [148, 162],
+      hipL: [96, 176], hipR: [144, 176], kneeL: [96, 246], kneeR: [144, 246],
+      footL: [84, 316], footR: [156, 316],
+    },
+    b: {
+      head: [120, 82], neck: [120, 116], shoulderL: [82, 132], shoulderR: [158, 132],
+      elbowL: [70, 164], elbowR: [170, 164], handL: [94, 160], handR: [146, 160],
+      hipL: [92, 214], hipR: [148, 214], kneeL: [72, 258], kneeR: [168, 258],
+      footL: [84, 316], footR: [156, 316],
+    },
+  },
+  pushup: {
+    cue: "body lowers as one line",
+    a: {
+      head: [196, 152], neck: [174, 160], shoulderL: [148, 150], shoulderR: [150, 170],
+      elbowL: [128, 210], elbowR: [132, 222], handL: [112, 258], handR: [120, 268],
+      hipL: [84, 150], hipR: [84, 170], kneeL: [48, 154], kneeR: [48, 172],
+      footL: [18, 160], footR: [18, 178],
+    },
+    b: {
+      head: [196, 190], neck: [174, 196], shoulderL: [148, 188], shoulderR: [150, 208],
+      elbowL: [128, 228], elbowR: [132, 238], handL: [112, 258], handR: [120, 268],
+      hipL: [84, 188], hipR: [84, 208], kneeL: [48, 190], kneeR: [48, 208],
+      footL: [18, 160], footR: [18, 178],
+    },
+  },
+  pullup: {
+    cue: "chin rises above bar",
+    prop: "pullup",
+    a: {
+      head: [120, 120], neck: [120, 152], shoulderL: [92, 160], shoulderR: [148, 160],
+      elbowL: [78, 96], elbowR: [162, 96], handL: [86, 46], handR: [154, 46],
+      hipL: [100, 230], hipR: [140, 230], kneeL: [96, 286], kneeR: [144, 286],
+      footL: [98, 330], footR: [142, 330],
+    },
+    b: {
+      head: [120, 82], neck: [120, 114], shoulderL: [92, 126], shoulderR: [148, 126],
+      elbowL: [78, 82], elbowR: [162, 82], handL: [86, 46], handR: [154, 46],
+      hipL: [100, 196], hipR: [140, 196], kneeL: [96, 254], kneeR: [144, 254],
+      footL: [98, 300], footR: [142, 300],
+    },
+  },
+  deadlift: {
+    cue: "hinge, brace, stand tall",
+    prop: "deadlift",
+    a: {
+      head: [124, 70], neck: [124, 104], shoulderL: [96, 116], shoulderR: [152, 116],
+      elbowL: [94, 168], elbowR: [158, 168], handL: [92, 236], handR: [166, 236],
+      hipL: [100, 184], hipR: [146, 184], kneeL: [100, 252], kneeR: [148, 252],
+      footL: [86, 318], footR: [164, 318],
+    },
+    b: {
+      head: [164, 126], neck: [146, 150], shoulderL: [120, 158], shoulderR: [174, 158],
+      elbowL: [112, 202], elbowR: [184, 202], handL: [102, 250], handR: [196, 250],
+      hipL: [94, 194], hipR: [144, 194], kneeL: [104, 256], kneeR: [152, 256],
+      footL: [86, 318], footR: [164, 318],
+    },
+  },
+  bench: {
+    cue: "press from chest to lockout",
+    prop: "bench",
+    a: {
+      head: [58, 204], neck: [84, 204], shoulderL: [104, 194], shoulderR: [104, 216],
+      elbowL: [102, 164], elbowR: [124, 164], handL: [102, 140], handR: [126, 140],
+      hipL: [166, 200], hipR: [184, 218], kneeL: [196, 252], kneeR: [212, 268],
+      footL: [202, 318], footR: [224, 318],
+    },
+    b: {
+      head: [58, 204], neck: [84, 204], shoulderL: [104, 194], shoulderR: [104, 216],
+      elbowL: [104, 128], elbowR: [126, 128], handL: [104, 88], handR: [126, 88],
+      hipL: [166, 200], hipR: [184, 218], kneeL: [196, 252], kneeR: [212, 268],
+      footL: [202, 318], footR: [224, 318],
+    },
+  },
+  plank: {
+    cue: "long spine, forearms grounded",
+    a: {
+      head: [192, 174], neck: [170, 180], shoulderL: [144, 172], shoulderR: [146, 194],
+      elbowL: [120, 232], elbowR: [132, 238], handL: [100, 250], handR: [116, 260],
+      hipL: [84, 174], hipR: [84, 196], kneeL: [48, 178], kneeR: [48, 198],
+      footL: [18, 182], footR: [18, 202],
+    },
+    b: {
+      head: [190, 170], neck: [168, 176], shoulderL: [144, 170], shoulderR: [146, 192],
+      elbowL: [120, 232], elbowR: [132, 238], handL: [100, 250], handR: [116, 260],
+      hipL: [84, 172], hipR: [84, 194], kneeL: [48, 176], kneeR: [48, 196],
+      footL: [18, 182], footR: [18, 202],
+    },
+  },
+  burpee: {
+    cue: "stand, sprawl, reset",
+    a: {
+      head: [120, 56], neck: [120, 90], shoulderL: [84, 106], shoulderR: [156, 106],
+      elbowL: [68, 144], elbowR: [172, 144], handL: [92, 164], handR: [148, 164],
+      hipL: [98, 178], hipR: [142, 178], kneeL: [98, 248], kneeR: [142, 248],
+      footL: [84, 318], footR: [156, 318],
+    },
+    b: {
+      head: [190, 182], neck: [168, 188], shoulderL: [142, 180], shoulderR: [144, 202],
+      elbowL: [122, 232], elbowR: [132, 242], handL: [104, 266], handR: [116, 274],
+      hipL: [82, 184], hipR: [82, 206], kneeL: [48, 190], kneeR: [48, 210],
+      footL: [18, 188], footR: [18, 208],
+    },
+  },
+};
+
+function pointValues(poseA, poseB, key, index) {
+  return `${poseA[key][index]};${poseB[key][index]};${poseA[key][index]}`;
+}
+
+function animatedLine(name, from, to, poseA, poseB, className = "coach-bone") {
+  return `
+    <line class="${className} ${name}" x1="${poseA[from][0]}" y1="${poseA[from][1]}" x2="${poseA[to][0]}" y2="${poseA[to][1]}">
+      <animate attributeName="x1" values="${pointValues(poseA, poseB, from, 0)}" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="y1" values="${pointValues(poseA, poseB, from, 1)}" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="${pointValues(poseA, poseB, to, 0)}" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="${pointValues(poseA, poseB, to, 1)}" dur="1.8s" repeatCount="indefinite"/>
+    </line>
+  `;
+}
+
+function animatedJoint(name, poseA, poseB, radius = 5) {
+  return `
+    <circle class="coach-joint" cx="${poseA[name][0]}" cy="${poseA[name][1]}" r="${radius}">
+      <animate attributeName="cx" values="${pointValues(poseA, poseB, name, 0)}" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="${pointValues(poseA, poseB, name, 1)}" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  `;
+}
+
+function animatedHead(poseA, poseB) {
+  return `
+    <circle class="coach-head" cx="${poseA.head[0]}" cy="${poseA.head[1]}" r="18">
+      <animate attributeName="cx" values="${pointValues(poseA, poseB, "head", 0)}" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="${pointValues(poseA, poseB, "head", 1)}" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  `;
+}
+
+function propMarkup(config, poseA, poseB) {
+  if (config.prop === "pullup") {
+    return `<line class="coach-prop" x1="58" y1="42" x2="182" y2="42"/><line class="coach-prop weak" x1="62" y1="42" x2="62" y2="18"/><line class="coach-prop weak" x1="178" y1="42" x2="178" y2="18"/>`;
+  }
+  if (config.prop === "deadlift") {
+    return `
+      <line class="coach-prop" x1="${poseA.handL[0] - 18}" y1="${poseA.handL[1] + 8}" x2="${poseA.handR[0] + 18}" y2="${poseA.handR[1] + 8}">
+        <animate attributeName="x1" values="${poseA.handL[0] - 18};${poseB.handL[0] - 18};${poseA.handL[0] - 18}" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="y1" values="${poseA.handL[1] + 8};${poseB.handL[1] + 8};${poseA.handL[1] + 8}" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="${poseA.handR[0] + 18};${poseB.handR[0] + 18};${poseA.handR[0] + 18}" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="${poseA.handR[1] + 8};${poseB.handR[1] + 8};${poseA.handR[1] + 8}" dur="1.8s" repeatCount="indefinite"/>
+      </line>
+    `;
+  }
+  if (config.prop === "bench") {
+    return `
+      <line class="coach-prop weak" x1="52" y1="232" x2="194" y2="232"/>
+      <line class="coach-prop" x1="${poseA.handL[0] - 22}" y1="${poseA.handL[1]}" x2="${poseA.handR[0] + 22}" y2="${poseA.handR[1]}">
+        <animate attributeName="y1" values="${poseA.handL[1]};${poseB.handL[1]};${poseA.handL[1]}" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="${poseA.handR[1]};${poseB.handR[1]};${poseA.handR[1]}" dur="1.8s" repeatCount="indefinite"/>
+      </line>
+    `;
+  }
+  return "";
+}
+
+function fallbackSvg(exercise = "squat") {
+  const config = poseLibrary[exercise] || poseLibrary.squat;
+  const { a, b } = config;
+  const bones = [
+    ["shoulders", "shoulderL", "shoulderR", "coach-bone accent"],
+    ["torso-left", "shoulderL", "hipL", "coach-bone torso"],
+    ["torso-right", "shoulderR", "hipR", "coach-bone torso"],
+    ["pelvis", "hipL", "hipR", "coach-bone accent"],
+    ["upper-arm-left", "shoulderL", "elbowL"],
+    ["lower-arm-left", "elbowL", "handL"],
+    ["upper-arm-right", "shoulderR", "elbowR"],
+    ["lower-arm-right", "elbowR", "handR"],
+    ["upper-leg-left", "hipL", "kneeL"],
+    ["lower-leg-left", "kneeL", "footL"],
+    ["upper-leg-right", "hipR", "kneeR"],
+    ["lower-leg-right", "kneeR", "footR"],
+  ];
+  const joints = ["neck", "shoulderL", "shoulderR", "elbowL", "elbowR", "handL", "handR", "hipL", "hipR", "kneeL", "kneeR", "footL", "footR"];
+
+  return `
+    <svg class="fallback-coach" viewBox="0 0 240 360" aria-hidden="true">
+      <defs>
+        <radialGradient id="coachGlow" cx="50%" cy="50%" r="65%">
+          <stop offset="0%" stop-color="#18e7ff" stop-opacity="0.32"/>
+          <stop offset="100%" stop-color="#18e7ff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="coachBone" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#18e7ff"/>
+          <stop offset="52%" stop-color="#f5f8ff"/>
+          <stop offset="100%" stop-color="#b9ff3d"/>
+        </linearGradient>
+      </defs>
+      <ellipse class="coach-floor" cx="120" cy="330" rx="84" ry="16"/>
+      <ellipse class="coach-aura" cx="120" cy="178" rx="104" ry="142"/>
+      ${propMarkup(config, a, b)}
+      ${animatedLine("neck", "head", "neck", a, b, "coach-bone neck")}
+      ${bones.map(([name, from, to, className]) => animatedLine(name, from, to, a, b, className)).join("")}
+      ${animatedHead(a, b)}
+      ${joints.map((joint) => animatedJoint(joint, a, b, ["handL", "handR", "footL", "footR"].includes(joint) ? 4 : 5)).join("")}
+    </svg>
+  `;
+}
+
 function fallbackMarkup(exercise = "squat") {
   const label = exerciseLabels[exercise] || "Workout demo";
+  const cue = (poseLibrary[exercise] || poseLibrary.squat).cue;
   return `
-    <div class="fallback-avatar" data-exercise="${exercise}" aria-label="Animated 3D exercise fallback model" role="img">
-      <span class="fallback-label"><strong>${label}</strong><small>animated movement pattern</small></span>
-      <span class="fallback-part fallback-head"></span>
-      <span class="fallback-part fallback-torso"></span>
-      <span class="fallback-part fallback-arm left"></span>
-      <span class="fallback-part fallback-arm right"></span>
-      <span class="fallback-part fallback-forearm left"></span>
-      <span class="fallback-part fallback-forearm right"></span>
-      <span class="fallback-part fallback-leg left"></span>
-      <span class="fallback-part fallback-leg right"></span>
-      <span class="fallback-part fallback-shin left"></span>
-      <span class="fallback-part fallback-shin right"></span>
+    <div class="fallback-avatar fallback-svg-avatar" data-exercise="${exercise}" aria-label="${label}" role="img">
+      <span class="fallback-label"><strong>${label}</strong><small>${cue}</small></span>
+      ${fallbackSvg(exercise)}
       <span class="fallback-phase"></span>
     </div>
   `;
@@ -251,9 +456,7 @@ function fallbackMarkup(exercise = "squat") {
 function updateFallbackExercise(stage, exercise) {
   const avatar = stage?.querySelector(".fallback-avatar");
   if (!avatar) return;
-  avatar.dataset.exercise = exercise;
-  const label = avatar.querySelector(".fallback-label strong");
-  if (label) label.textContent = exerciseLabels[exercise] || "Workout demo";
+  avatar.outerHTML = fallbackMarkup(exercise);
 }
 
 function ensureFallbackModel(stage) {
