@@ -430,10 +430,6 @@ p {
   height: 100% !important;
 }
 
-.three-stage.webgl-ready .fallback-avatar {
-  display: none;
-}
-
 .fallback-avatar {
   position: relative;
   z-index: 1;
@@ -442,6 +438,57 @@ p {
   transform-style: preserve-3d;
   filter: drop-shadow(0 0 36px rgba(24, 231, 255, 0.28));
   animation: fallback-float 3.8s ease-in-out infinite;
+}
+
+.fallback-label {
+  position: absolute;
+  left: 50%;
+  top: -42px;
+  display: grid;
+  gap: 2px;
+  min-width: 190px;
+  padding: 10px 13px;
+  border: 1px solid rgba(24, 231, 255, 0.26);
+  border-radius: 16px;
+  background: rgba(5, 7, 13, 0.62);
+  text-align: center;
+  transform: translateX(-50%);
+  backdrop-filter: blur(14px);
+}
+
+.fallback-label strong {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.fallback-label small {
+  color: var(--cyan);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fallback-phase {
+  position: absolute;
+  left: 50%;
+  bottom: -38px;
+  width: 180px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.fallback-phase::after {
+  content: "";
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--lime), var(--orange));
+  animation: fallback-phase 2s ease-in-out infinite;
 }
 
 .fallback-avatar::before,
@@ -473,6 +520,13 @@ p {
     #151b2f;
   box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.05), 0 0 22px rgba(24, 231, 255, 0.15);
   transform-origin: 50% 0%;
+}
+
+.fallback-avatar .fallback-part {
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 .fallback-head {
@@ -578,10 +632,98 @@ p {
   animation-name: fallback-squat;
 }
 
+.fallback-avatar[data-exercise="squat"] .fallback-torso {
+  animation-name: fallback-squat-torso;
+}
+
+.fallback-avatar[data-exercise="squat"] .fallback-arm.left {
+  animation-name: fallback-squat-arm-left;
+}
+
+.fallback-avatar[data-exercise="squat"] .fallback-arm.right {
+  animation-name: fallback-squat-arm-right;
+}
+
+.fallback-avatar[data-exercise="squat"] .fallback-forearm.left {
+  animation-name: fallback-squat-forearm-left;
+}
+
+.fallback-avatar[data-exercise="squat"] .fallback-forearm.right {
+  animation-name: fallback-squat-forearm-right;
+}
+
+.fallback-avatar[data-exercise="squat"] .fallback-leg.left,
+.fallback-avatar[data-exercise="squat"] .fallback-leg.right {
+  animation-name: fallback-squat-leg;
+}
+
+.fallback-avatar[data-exercise="squat"] .fallback-shin.left {
+  animation-name: fallback-squat-shin-left;
+}
+
+.fallback-avatar[data-exercise="squat"] .fallback-shin.right {
+  animation-name: fallback-squat-shin-right;
+}
+
+.fallback-avatar[data-exercise="deadlift"] .fallback-torso {
+  animation-name: fallback-deadlift-torso;
+}
+
+.fallback-avatar[data-exercise="deadlift"] .fallback-arm.left {
+  animation-name: fallback-deadlift-arm-left;
+}
+
+.fallback-avatar[data-exercise="deadlift"] .fallback-arm.right {
+  animation-name: fallback-deadlift-arm-right;
+}
+
+.fallback-avatar[data-exercise="deadlift"] .fallback-leg.left,
+.fallback-avatar[data-exercise="deadlift"] .fallback-leg.right {
+  animation-name: fallback-deadlift-leg;
+}
+
+.fallback-avatar[data-exercise="deadlift"] .fallback-shin.left {
+  animation-name: fallback-deadlift-shin-left;
+}
+
+.fallback-avatar[data-exercise="deadlift"] .fallback-shin.right {
+  animation-name: fallback-deadlift-shin-right;
+}
+
 .fallback-avatar[data-exercise="pushup"],
 .fallback-avatar[data-exercise="plank"] {
   animation-name: fallback-pushup;
   transform: rotate(76deg) scale(0.86);
+}
+
+.fallback-avatar[data-exercise="pushup"] .fallback-arm.left,
+.fallback-avatar[data-exercise="pushup"] .fallback-arm.right {
+  animation-name: fallback-pushup-arm;
+}
+
+.fallback-avatar[data-exercise="pushup"] .fallback-forearm.left,
+.fallback-avatar[data-exercise="pushup"] .fallback-forearm.right {
+  animation-name: fallback-pushup-forearm;
+}
+
+.fallback-avatar[data-exercise="pushup"] .fallback-leg.left,
+.fallback-avatar[data-exercise="pushup"] .fallback-leg.right,
+.fallback-avatar[data-exercise="plank"] .fallback-leg.left,
+.fallback-avatar[data-exercise="plank"] .fallback-leg.right {
+  transform: rotate(2deg);
+}
+
+.fallback-avatar[data-exercise="plank"] .fallback-arm.left,
+.fallback-avatar[data-exercise="plank"] .fallback-arm.right {
+  transform: rotate(0deg);
+}
+
+.fallback-avatar[data-exercise="plank"] .fallback-forearm.left {
+  transform: rotate(-38deg);
+}
+
+.fallback-avatar[data-exercise="plank"] .fallback-forearm.right {
+  transform: rotate(38deg);
 }
 
 .fallback-avatar[data-exercise="pullup"] .fallback-arm.left {
@@ -596,13 +738,57 @@ p {
   animation-name: fallback-pullup;
 }
 
+.fallback-avatar[data-exercise="pullup"] .fallback-forearm.left {
+  animation-name: fallback-pullup-forearm-left;
+}
+
+.fallback-avatar[data-exercise="pullup"] .fallback-forearm.right {
+  animation-name: fallback-pullup-forearm-right;
+}
+
+.fallback-avatar[data-exercise="pullup"] .fallback-leg.left {
+  animation-name: fallback-pullup-leg-left;
+}
+
+.fallback-avatar[data-exercise="pullup"] .fallback-leg.right {
+  animation-name: fallback-pullup-leg-right;
+}
+
 .fallback-avatar[data-exercise="bench"] {
   animation-name: fallback-bench;
   transform: rotate(82deg) scale(0.9);
 }
 
+.fallback-avatar[data-exercise="bench"] .fallback-arm.left {
+  animation-name: fallback-bench-arm-left;
+}
+
+.fallback-avatar[data-exercise="bench"] .fallback-arm.right {
+  animation-name: fallback-bench-arm-right;
+}
+
+.fallback-avatar[data-exercise="bench"] .fallback-forearm.left,
+.fallback-avatar[data-exercise="bench"] .fallback-forearm.right {
+  animation-name: fallback-bench-forearm;
+}
+
 .fallback-avatar[data-exercise="burpee"] {
   animation-name: fallback-burpee;
+}
+
+.fallback-avatar[data-exercise="burpee"] .fallback-arm.left,
+.fallback-avatar[data-exercise="burpee"] .fallback-arm.right {
+  animation-name: fallback-burpee-arm;
+}
+
+.fallback-avatar[data-exercise="burpee"] .fallback-leg.left,
+.fallback-avatar[data-exercise="burpee"] .fallback-leg.right {
+  animation-name: fallback-burpee-leg;
+}
+
+.fallback-avatar[data-exercise="burpee"] .fallback-shin.left,
+.fallback-avatar[data-exercise="burpee"] .fallback-shin.right {
+  animation-name: fallback-burpee-shin;
 }
 
 @keyframes fallback-float {
@@ -633,6 +819,141 @@ p {
 @keyframes fallback-burpee {
   0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
   45%, 60% { transform: translateY(70px) rotate(78deg) scale(0.82); }
+}
+
+@keyframes fallback-phase {
+  0%, 100% { transform: translateX(-10%); }
+  50% { transform: translateX(150%); }
+}
+
+@keyframes fallback-squat-torso {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(18px) rotate(-5deg); }
+}
+
+@keyframes fallback-squat-arm-left {
+  0% { transform: rotate(14deg); }
+  100% { transform: rotate(-58deg); }
+}
+
+@keyframes fallback-squat-arm-right {
+  0% { transform: rotate(-14deg); }
+  100% { transform: rotate(58deg); }
+}
+
+@keyframes fallback-squat-forearm-left {
+  0% { transform: rotate(-10deg); }
+  100% { transform: translate(16px, -20px) rotate(-72deg); }
+}
+
+@keyframes fallback-squat-forearm-right {
+  0% { transform: rotate(10deg); }
+  100% { transform: translate(-16px, -20px) rotate(72deg); }
+}
+
+@keyframes fallback-squat-leg {
+  0% { transform: rotate(7deg); }
+  100% { transform: rotate(34deg); }
+}
+
+@keyframes fallback-squat-shin-left {
+  0% { transform: rotate(-8deg); }
+  100% { transform: translate(-16px, -36px) rotate(-44deg); }
+}
+
+@keyframes fallback-squat-shin-right {
+  0% { transform: rotate(8deg); }
+  100% { transform: translate(16px, -36px) rotate(44deg); }
+}
+
+@keyframes fallback-deadlift-torso {
+  0% { transform: rotate(-8deg); }
+  100% { transform: translateY(14px) rotate(38deg); }
+}
+
+@keyframes fallback-deadlift-arm-left {
+  0% { transform: rotate(18deg); }
+  100% { transform: translate(12px, 28px) rotate(58deg); }
+}
+
+@keyframes fallback-deadlift-arm-right {
+  0% { transform: rotate(-18deg); }
+  100% { transform: translate(-12px, 28px) rotate(-58deg); }
+}
+
+@keyframes fallback-deadlift-leg {
+  0% { transform: rotate(7deg); }
+  100% { transform: rotate(18deg); }
+}
+
+@keyframes fallback-deadlift-shin-left {
+  0% { transform: rotate(-8deg); }
+  100% { transform: translate(-5px, -18px) rotate(-24deg); }
+}
+
+@keyframes fallback-deadlift-shin-right {
+  0% { transform: rotate(8deg); }
+  100% { transform: translate(5px, -18px) rotate(24deg); }
+}
+
+@keyframes fallback-pushup-arm {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(24deg); }
+}
+
+@keyframes fallback-pushup-forearm {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(46deg); }
+}
+
+@keyframes fallback-pullup-forearm-left {
+  0% { transform: translate(0, -18px) rotate(-22deg); }
+  100% { transform: translate(22px, -52px) rotate(-78deg); }
+}
+
+@keyframes fallback-pullup-forearm-right {
+  0% { transform: translate(0, -18px) rotate(22deg); }
+  100% { transform: translate(-22px, -52px) rotate(78deg); }
+}
+
+@keyframes fallback-pullup-leg-left {
+  0% { transform: rotate(8deg); }
+  100% { transform: rotate(-12deg); }
+}
+
+@keyframes fallback-pullup-leg-right {
+  0% { transform: rotate(-8deg); }
+  100% { transform: rotate(12deg); }
+}
+
+@keyframes fallback-bench-arm-left {
+  0% { transform: rotate(-58deg); }
+  100% { transform: rotate(-5deg); }
+}
+
+@keyframes fallback-bench-arm-right {
+  0% { transform: rotate(58deg); }
+  100% { transform: rotate(5deg); }
+}
+
+@keyframes fallback-bench-forearm {
+  0% { transform: rotate(42deg); }
+  100% { transform: translateY(-30px) rotate(4deg); }
+}
+
+@keyframes fallback-burpee-arm {
+  0% { transform: rotate(14deg); }
+  45%, 100% { transform: rotate(82deg); }
+}
+
+@keyframes fallback-burpee-leg {
+  0% { transform: rotate(7deg); }
+  45%, 100% { transform: rotate(58deg); }
+}
+
+@keyframes fallback-burpee-shin {
+  0% { transform: rotate(8deg); }
+  45%, 100% { transform: translateY(-18px) rotate(-54deg); }
 }
 
 .visual-hud {
@@ -975,6 +1296,13 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+}
+
+.viewer-demo-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
 }
 
 .rep-pill {

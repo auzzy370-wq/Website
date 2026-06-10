@@ -391,7 +391,7 @@ function createBaseScene(container, options = {}) {
       elapsed = 0;
       container.dispatchEvent(new CustomEvent("vitrus:exercise", { detail: { exercise } }));
       container.dispatchEvent(new CustomEvent("vitrus:rep", { detail: { reps: 0 } }));
-      container.querySelector(".fallback-avatar")?.setAttribute("data-exercise", exercise);
+      window.Vitrus?.updateFallbackExercise?.(container, exercise);
     },
     setAvatar(nextOptions) {
       scene.remove(avatar);

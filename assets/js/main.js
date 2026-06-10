@@ -218,9 +218,21 @@ function initLocalProgressButtons() {
   });
 }
 
+const exerciseLabels = {
+  squat: "Squat demo",
+  pushup: "Push-up demo",
+  pullup: "Pull-up demo",
+  deadlift: "Deadlift demo",
+  bench: "Bench press demo",
+  plank: "Plank hold demo",
+  burpee: "Burpee demo",
+};
+
 function fallbackMarkup(exercise = "squat") {
+  const label = exerciseLabels[exercise] || "Workout demo";
   return `
     <div class="fallback-avatar" data-exercise="${exercise}" aria-label="Animated 3D exercise fallback model" role="img">
+      <span class="fallback-label"><strong>${label}</strong><small>animated movement pattern</small></span>
       <span class="fallback-part fallback-head"></span>
       <span class="fallback-part fallback-torso"></span>
       <span class="fallback-part fallback-arm left"></span>
@@ -231,13 +243,25 @@ function fallbackMarkup(exercise = "squat") {
       <span class="fallback-part fallback-leg right"></span>
       <span class="fallback-part fallback-shin left"></span>
       <span class="fallback-part fallback-shin right"></span>
+      <span class="fallback-phase"></span>
     </div>
   `;
 }
 
+function updateFallbackExercise(stage, exercise) {
+  const avatar = stage?.querySelector(".fallback-avatar");
+  if (!avatar) return;
+  avatar.dataset.exercise = exercise;
+  const label = avatar.querySelector(".fallback-label strong");
+  if (label) label.textContent = exerciseLabels[exercise] || "Workout demo";
+}
+
 function ensureFallbackModel(stage) {
-  if (!stage || stage.querySelector(".fallback-avatar")) return;
   const exercise = stage.dataset.exercise || stage.dataset.analyzerExercise || "squat";
+  if (!stage || stage.querySelector(".fallback-avatar")) {
+    updateFallbackExercise(stage, exercise);
+    return;
+  }
   stage.insertAdjacentHTML("afterbegin", fallbackMarkup(exercise));
 }
 
@@ -264,4 +288,5 @@ window.Vitrus = {
   setStoredState,
   ensureFallbackModel,
   initFallbackModels,
+  updateFallbackExercise,
 };

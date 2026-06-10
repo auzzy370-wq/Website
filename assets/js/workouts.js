@@ -222,6 +222,16 @@ const muscleGroups = {
   "full body": ["chest", "shoulders", "arms", "back", "core", "glutes", "quads", "hamstrings", "calves"],
 };
 
+const exerciseNames = {
+  squat: "Squat",
+  bench: "Bench press",
+  burpee: "Burpee",
+  plank: "Plank",
+  pullup: "Pull-up",
+  deadlift: "Deadlift",
+  pushup: "Push-up",
+};
+
 function muscleMapSvg(activeMuscles) {
   const active = new Set(activeMuscles.flatMap((m) => muscleGroups[m.toLowerCase()] || []));
   const cls = (name) => `muscle ${active.has(name) ? "active" : ""}`;
@@ -288,7 +298,10 @@ function openWorkoutModal(id) {
         <div class="exercise-viewer">
           <div class="three-stage" data-exercise-three data-exercise="${item.exercise}"></div>
           <div class="viewer-overlay">
-            <span class="rep-pill" data-rep-count>0 reps</span>
+            <div class="viewer-demo-label">
+              <span class="rep-pill" data-rep-count>0 reps</span>
+              <span class="tag">Current demo: ${exerciseNames[item.exercise] || item.exercise}</span>
+            </div>
             <div class="viewer-controls">
               <button class="model-button" data-viewer-control="slow">Slow motion</button>
               <button class="model-button" data-viewer-control="pause">Pause</button>
