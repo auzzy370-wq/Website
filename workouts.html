@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Workouts | VITRUS</title>
+    <meta name="description" content="Browse VITRUS science-based workouts with 3D exercise demonstrations, muscle maps, timers, and saved progress.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body data-page="workouts">
+    <div class="noise"></div>
+    <main>
+      <section class="container page-hero">
+        <div class="page-hero-inner">
+          <div class="section-header reveal">
+            <span class="eyebrow">Workout library</span>
+            <h1 style="font-size:clamp(3rem,7vw,6rem)">Programs that teach every rep.</h1>
+            <p class="lead">Filter 12 sample workouts by goal, then open a detailed modal with step-by-step coaching, a 3D animated exercise demo, slow motion, rep counter, video fallback, and target muscle map.</p>
+          </div>
+          <a class="btn secondary" href="dashboard.html">View progress</a>
+        </div>
+      </section>
+
+      <section class="container section tight">
+        <div class="filters reveal" data-workout-filters></div>
+        <div class="grid cols-3" data-workout-grid></div>
+      </section>
+    </main>
+
+    <div class="modal" data-workout-modal></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script type="module" src="assets/js/three-scenes.js"></script>
+    <script src="assets/js/workouts.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nutrition & Meal Planner | VITRUS</title>
+    <meta name="description" content="Calculate macros, browse meal ideas, and track calories and protein in the VITRUS static nutrition planner.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body data-page="nutrition">
+    <div class="noise"></div>
+    <main>
+      <section class="container page-hero">
+        <div class="page-hero-inner">
+          <div class="section-header reveal">
+            <span class="eyebrow orange">Nutrition & Meal Planner</span>
+            <h1 style="font-size:clamp(3rem,7vw,6rem)">Fuel the body you are building.</h1>
+            <p class="lead">Calculate science-based macro targets, browse high-protein meal ideas, and log calories with localStorage persistence.</p>
+          </div>
+          <a class="btn secondary" href="workouts.html">Pair with workouts</a>
+        </div>
+      </section>
+
+      <section class="container section tight">
+        <div class="split">
+          <div class="card form-panel reveal">
+            <h2 style="font-size:clamp(2rem,4vw,3.8rem)">Macro calculator</h2>
+            <p>Uses Mifflin-St Jeor estimates with goal and activity adjustments.</p>
+            <form class="grid" data-macro-form>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="sex">Sex</label>
+                  <select id="sex" name="sex"><option value="male">Male</option><option value="female">Female</option></select>
+                </div>
+                <div class="field"><label for="age">Age</label><input id="age" name="age" type="number" min="13" value="32"></div>
+                <div class="field"><label for="height">Height (cm)</label><input id="height" name="height" type="number" value="178"></div>
+                <div class="field"><label for="weight">Weight (kg)</label><input id="weight" name="weight" type="number" value="82"></div>
+                <div class="field">
+                  <label for="activity">Activity</label>
+                  <select id="activity" name="activity"><option value="low">Low</option><option value="moderate" selected>Moderate</option><option value="high">High</option></select>
+                </div>
+                <div class="field">
+                  <label for="goal">Goal</label>
+                  <select id="goal" name="goal"><option value="fatloss">Fat loss</option><option value="maintain">Maintain</option><option value="muscle" selected>Muscle gain</option></select>
+                </div>
+              </div>
+              <button class="btn" type="submit">Calculate targets</button>
+            </form>
+            <div class="macro-result" data-macro-output></div>
+          </div>
+
+          <div class="card form-panel reveal">
+            <h2 style="font-size:clamp(2rem,4vw,3.8rem)">Calorie tracker</h2>
+            <p>Mock backend behavior: your food log is stored locally in the browser.</p>
+            <form class="tracker-row" data-tracker-form>
+              <div class="field"><label for="food">Food</label><input id="food" name="food" placeholder="Greek yogurt bowl" required></div>
+              <div class="field"><label for="calories">Calories</label><input id="calories" name="calories" type="number" placeholder="420" required></div>
+              <div class="field"><label for="protein">Protein</label><input id="protein" name="protein" type="number" placeholder="35" required></div>
+              <button class="btn" type="submit">Add</button>
+            </form>
+            <div class="macro-result" data-tracker-totals></div>
+            <div class="challenge-list" style="margin-top:18px" data-tracker-list></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container section">
+        <div class="section-header reveal">
+          <span class="eyebrow lime">Meal ideas</span>
+          <h2>Beautiful meals that fit performance goals.</h2>
+        </div>
+        <div class="grid cols-4" data-meal-grid></div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/nutrition.js" defer></script>
+  </body>
+</html>

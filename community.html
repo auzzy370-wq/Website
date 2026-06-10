@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Community & Challenges | VITRUS</title>
+    <meta name="description" content="Join VITRUS daily challenges, leaderboards, and a mocked performance social feed.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body data-page="community">
+    <div class="noise"></div>
+    <main>
+      <section class="container page-hero">
+        <div class="section-header reveal">
+          <span class="eyebrow lime">Community / Challenges</span>
+          <h1 style="font-size:clamp(3rem,7vw,6rem)">Consistency gets easier when it becomes visible.</h1>
+          <p class="lead">Leaderboards, daily missions, and a mocked social feed create positive pressure without turning fitness into noise.</p>
+        </div>
+      </section>
+
+      <section class="container section tight">
+        <div class="grid cols-3">
+          <article class="card pad reveal">
+            <span class="eyebrow orange">Today</span>
+            <h2 style="font-size:clamp(2rem,4vw,3.5rem);margin:16px 0">The 300 Rep Signal</h2>
+            <p>Complete 100 squats, 100 push-ups, and 100 band pulls across the day. Quality reps only.</p>
+            <button class="btn" data-save-progress="The 300 Rep Signal">Join challenge</button>
+          </article>
+          <article class="card pad reveal">
+            <h3>Leaderboard</h3>
+            <div class="challenge-list">
+              <div class="leaderboard-row"><span class="rank">1</span><div><strong>Ari K.</strong><p style="margin:3px 0 0">22,420 points</p></div><span class="tag">+18%</span></div>
+              <div class="leaderboard-row"><span class="rank">2</span><div><strong>Sam V.</strong><p style="margin:3px 0 0">21,880 points</p></div><span class="tag">streak 41</span></div>
+              <div class="leaderboard-row"><span class="rank">3</span><div><strong>Nia T.</strong><p style="margin:3px 0 0">20,460 points</p></div><span class="tag">PR week</span></div>
+              <div class="leaderboard-row"><span class="rank">4</span><div><strong>Leo M.</strong><p style="margin:3px 0 0">19,950 points</p></div><span class="tag">zone 2</span></div>
+            </div>
+          </article>
+          <article class="card pad reveal">
+            <h3>Daily missions</h3>
+            <div class="challenge-list">
+              <div class="correction"><strong>Mobility primer</strong><p style="margin:0">10 minutes before work.</p></div>
+              <div class="correction"><strong>Protein anchor</strong><p style="margin:0">Hit 35g protein at breakfast.</p></div>
+              <div class="correction"><strong>Recovery walk</strong><p style="margin:0">20 minutes after dinner.</p></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="container section">
+        <div class="section-header reveal">
+          <span class="eyebrow">Social feed</span>
+          <h2>Mocked posts with performance context.</h2>
+        </div>
+        <div class="feed-list">
+          <div class="feed-item reveal"><img class="avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=200&q=80" alt="Member"><div><strong>Jordan completed Apex Strength 45</strong><p style="margin:4px 0 0">Squat depth hit green for 8 of 10 tracked reps.</p></div><span class="tag">12 min ago</span></div>
+          <div class="feed-item reveal"><img class="avatar" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=200&q=80" alt="Member"><div><strong>Ren posted a meal prep stack</strong><p style="margin:4px 0 0">4 days of high-protein bowls, average 48g per meal.</p></div><span class="tag">44 min ago</span></div>
+          <div class="feed-item reveal"><img class="avatar" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80" alt="Member"><div><strong>Cam joined Mobility Flow 20</strong><p style="margin:4px 0 0">Hip internal rotation improved after the second week.</p></div><span class="tag">2 hr ago</span></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>
