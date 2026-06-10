@@ -334,6 +334,7 @@ function createBaseScene(container, options = {}) {
   let elapsed = 0;
   let repCount = 0;
   let lastRepBucket = 0;
+  let renderedOnce = false;
 
   function resize() {
     const rect = container.getBoundingClientRect();
@@ -366,6 +367,10 @@ function createBaseScene(container, options = {}) {
     }
     controls.update();
     renderer.render(scene, camera);
+    if (!renderedOnce) {
+      renderedOnce = true;
+      container.classList.add("webgl-ready");
+    }
   }
 
   const observer = new ResizeObserver(resize);
@@ -386,6 +391,7 @@ function createBaseScene(container, options = {}) {
       elapsed = 0;
       container.dispatchEvent(new CustomEvent("vitrus:exercise", { detail: { exercise } }));
       container.dispatchEvent(new CustomEvent("vitrus:rep", { detail: { reps: 0 } }));
+      container.querySelector(".fallback-avatar")?.setAttribute("data-exercise", exercise);
     },
     setAvatar(nextOptions) {
       scene.remove(avatar);
@@ -416,7 +422,14 @@ function createBaseScene(container, options = {}) {
 function initHero() {
   const stage = document.querySelector("[data-hero-three]");
   if (!stage) return;
-  const scene = createBaseScene(stage, { exercise: "squat", avatar: { type: "male" }, autoRotate: true });
+  window.Vitrus?.ensureFallbackModel?.(stage);
+  let scene;
+  try {
+    scene = createBaseScene(stage, { exercise: "squat", avatar: { type: "male" }, autoRotate: true });
+  } catch (error) {
+    console.warn("VITRUS WebGL hero failed; using CSS fallback model.", error);
+    return;
+  }
   stage._vitrusScene = scene;
 
   const sequence = ["squat", "pushup", "pullup"];
@@ -456,12 +469,19 @@ function initHero() {
 function initExerciseViewer(selector = "[data-exercise-three]") {
   document.querySelectorAll(selector).forEach((stage) => {
     if (stage._vitrusScene) return;
-    const scene = createBaseScene(stage, {
-      exercise: stage.dataset.exercise || "squat",
-      speed: Number(stage.dataset.speed || 1.2),
-      avatar: { type: stage.dataset.model || "male" },
-      autoRotate: false,
-    });
+    window.Vitrus?.ensureFallbackModel?.(stage);
+    let scene;
+    try {
+      scene = createBaseScene(stage, {
+        exercise: stage.dataset.exercise || "squat",
+        speed: Number(stage.dataset.speed || 1.2),
+        avatar: { type: stage.dataset.model || "male" },
+        autoRotate: false,
+      });
+    } catch (error) {
+      console.warn("VITRUS WebGL exercise viewer failed; using CSS fallback model.", error);
+      return;
+    }
     stage._vitrusScene = scene;
     stage.addEventListener("vitrus:rep", (event) => {
       const output = stage.closest(".exercise-viewer")?.querySelector("[data-rep-count]");
@@ -473,7 +493,14 @@ function initExerciseViewer(selector = "[data-exercise-three]") {
 function initAnalyzer() {
   const stage = document.querySelector("[data-analyzer-three]");
   if (!stage) return;
-  const scene = createBaseScene(stage, { exercise: "squat", avatar: { type: "female", skin: palette.skinB }, autoRotate: true, speed: 0.9 });
+  window.Vitrus?.ensureFallbackModel?.(stage);
+  let scene;
+  try {
+    scene = createBaseScene(stage, { exercise: "squat", avatar: { type: "female", skin: palette.skinB }, autoRotate: true, speed: 0.9 });
+  } catch (error) {
+    console.warn("VITRUS WebGL analyzer failed; using CSS fallback model.", error);
+    return;
+  }
   stage._vitrusScene = scene;
 
   const inputs = document.querySelectorAll("[data-avatar-option]");
@@ -496,12 +523,19 @@ function initComposition() {
   if (!stage) return;
   const slider = document.querySelector("[data-body-fat]");
   const output = document.querySelector("[data-body-fat-output]");
-  const scene = createBaseScene(stage, {
-    exercise: "squat",
-    avatar: { type: "male", bodyFat: Number(slider?.value || 18) },
-    speed: 0.65,
-    autoRotate: true,
-  });
+  window.Vitrus?.ensureFallbackModel?.(stage);
+  let scene;
+  try {
+    scene = createBaseScene(stage, {
+      exercise: "squat",
+      avatar: { type: "male", bodyFat: Number(slider?.value || 18) },
+      speed: 0.65,
+      autoRotate: true,
+    });
+  } catch (error) {
+    console.warn("VITRUS WebGL composition viewer failed; using CSS fallback model.", error);
+    return;
+  }
   stage._vitrusScene = scene;
 
   slider?.addEventListener("input", () => {

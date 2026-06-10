@@ -218,6 +218,35 @@ function initLocalProgressButtons() {
   });
 }
 
+function fallbackMarkup(exercise = "squat") {
+  return `
+    <div class="fallback-avatar" data-exercise="${exercise}" aria-label="Animated 3D exercise fallback model" role="img">
+      <span class="fallback-part fallback-head"></span>
+      <span class="fallback-part fallback-torso"></span>
+      <span class="fallback-part fallback-arm left"></span>
+      <span class="fallback-part fallback-arm right"></span>
+      <span class="fallback-part fallback-forearm left"></span>
+      <span class="fallback-part fallback-forearm right"></span>
+      <span class="fallback-part fallback-leg left"></span>
+      <span class="fallback-part fallback-leg right"></span>
+      <span class="fallback-part fallback-shin left"></span>
+      <span class="fallback-part fallback-shin right"></span>
+    </div>
+  `;
+}
+
+function ensureFallbackModel(stage) {
+  if (!stage || stage.querySelector(".fallback-avatar")) return;
+  const exercise = stage.dataset.exercise || stage.dataset.analyzerExercise || "squat";
+  stage.insertAdjacentHTML("afterbegin", fallbackMarkup(exercise));
+}
+
+function initFallbackModels(root = document) {
+  root
+    .querySelectorAll("[data-hero-three], [data-exercise-three], [data-analyzer-three], [data-composition-three]")
+    .forEach(ensureFallbackModel);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderChrome();
   initTheme();
@@ -226,10 +255,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initCounters();
   initRecommendationForm();
   initLocalProgressButtons();
+  initFallbackModels();
 });
 
 window.Vitrus = {
   icon,
   getStoredState,
   setStoredState,
+  ensureFallbackModel,
+  initFallbackModels,
 };

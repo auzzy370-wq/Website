@@ -418,12 +418,221 @@ p {
 .three-stage {
   position: absolute;
   inset: 0;
+  display: grid;
+  place-items: center;
 }
 
 .three-stage canvas {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100% !important;
   height: 100% !important;
+}
+
+.three-stage.webgl-ready .fallback-avatar {
+  display: none;
+}
+
+.fallback-avatar {
+  position: relative;
+  z-index: 1;
+  width: min(42vw, 260px);
+  height: min(72vw, 420px);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 0 36px rgba(24, 231, 255, 0.28));
+  animation: fallback-float 3.8s ease-in-out infinite;
+}
+
+.fallback-avatar::before,
+.fallback-avatar::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 132%;
+  height: 24px;
+  border: 1px solid rgba(24, 231, 255, 0.34);
+  border-radius: 50%;
+  transform: translate(-50%, 290%) rotateX(70deg);
+  box-shadow: 0 0 34px rgba(24, 231, 255, 0.18);
+}
+
+.fallback-avatar::after {
+  width: 92%;
+  border-color: rgba(185, 255, 61, 0.32);
+  transform: translate(-50%, 390%) rotateX(70deg);
+}
+
+.fallback-part {
+  position: absolute;
+  left: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(135deg, rgba(24, 231, 255, 0.2), rgba(185, 255, 61, 0.06)),
+    #151b2f;
+  box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.05), 0 0 22px rgba(24, 231, 255, 0.15);
+  transform-origin: 50% 0%;
+}
+
+.fallback-head {
+  top: 4%;
+  width: 54px;
+  height: 64px;
+  margin-left: -27px;
+  border-radius: 48% 48% 44% 44%;
+  background: linear-gradient(135deg, #c9855d, #8f553f);
+}
+
+.fallback-torso {
+  top: 21%;
+  width: 94px;
+  height: 142px;
+  margin-left: -47px;
+  border-radius: 48px 48px 34px 34px;
+}
+
+.fallback-torso::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 24%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--lime), transparent);
+  box-shadow: 0 0 14px var(--cyan);
+}
+
+.fallback-arm,
+.fallback-forearm,
+.fallback-leg,
+.fallback-shin {
+  width: 24px;
+  border-radius: 999px;
+}
+
+.fallback-arm {
+  top: 25%;
+  height: 96px;
+}
+
+.fallback-arm.left {
+  margin-left: -76px;
+  transform: rotate(14deg);
+}
+
+.fallback-arm.right {
+  margin-left: 52px;
+  transform: rotate(-14deg);
+}
+
+.fallback-forearm {
+  top: 47%;
+  height: 88px;
+  background: linear-gradient(135deg, #c9855d, #8f553f);
+}
+
+.fallback-forearm.left {
+  margin-left: -93px;
+  transform: rotate(-10deg);
+}
+
+.fallback-forearm.right {
+  margin-left: 69px;
+  transform: rotate(10deg);
+}
+
+.fallback-leg {
+  top: 55%;
+  height: 112px;
+}
+
+.fallback-leg.left {
+  margin-left: -38px;
+  transform: rotate(7deg);
+}
+
+.fallback-leg.right {
+  margin-left: 14px;
+  transform: rotate(-7deg);
+}
+
+.fallback-shin {
+  top: 78%;
+  height: 98px;
+  background: linear-gradient(135deg, #c9855d, #8f553f);
+}
+
+.fallback-shin.left {
+  margin-left: -48px;
+  transform: rotate(-8deg);
+}
+
+.fallback-shin.right {
+  margin-left: 24px;
+  transform: rotate(8deg);
+}
+
+.fallback-avatar[data-exercise="squat"],
+.fallback-avatar[data-exercise="deadlift"] {
+  animation-name: fallback-squat;
+}
+
+.fallback-avatar[data-exercise="pushup"],
+.fallback-avatar[data-exercise="plank"] {
+  animation-name: fallback-pushup;
+  transform: rotate(76deg) scale(0.86);
+}
+
+.fallback-avatar[data-exercise="pullup"] .fallback-arm.left {
+  transform: rotate(154deg);
+}
+
+.fallback-avatar[data-exercise="pullup"] .fallback-arm.right {
+  transform: rotate(-154deg);
+}
+
+.fallback-avatar[data-exercise="pullup"] {
+  animation-name: fallback-pullup;
+}
+
+.fallback-avatar[data-exercise="bench"] {
+  animation-name: fallback-bench;
+  transform: rotate(82deg) scale(0.9);
+}
+
+.fallback-avatar[data-exercise="burpee"] {
+  animation-name: fallback-burpee;
+}
+
+@keyframes fallback-float {
+  0%, 100% { transform: translateY(0) rotateY(-8deg); }
+  50% { transform: translateY(-14px) rotateY(8deg); }
+}
+
+@keyframes fallback-squat {
+  0%, 100% { transform: translateY(0) rotateY(-8deg) scaleY(1); }
+  50% { transform: translateY(54px) rotateY(8deg) scaleY(0.86); }
+}
+
+@keyframes fallback-pushup {
+  0%, 100% { transform: rotate(76deg) translateY(0) scale(0.86); }
+  50% { transform: rotate(76deg) translateY(34px) scale(0.86); }
+}
+
+@keyframes fallback-pullup {
+  0%, 100% { transform: translateY(40px) rotateY(-8deg); }
+  50% { transform: translateY(-26px) rotateY(8deg); }
+}
+
+@keyframes fallback-bench {
+  0%, 100% { transform: rotate(82deg) translateY(0) scale(0.9); }
+  50% { transform: rotate(82deg) translateY(-28px) scale(0.9); }
+}
+
+@keyframes fallback-burpee {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  45%, 60% { transform: translateY(70px) rotate(78deg) scale(0.82); }
 }
 
 .visual-hud {

@@ -322,6 +322,7 @@ function openWorkoutModal(id) {
   `;
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
+  window.Vitrus?.initFallbackModels?.(modal);
 
   const bootViewer = () => {
     if (window.Vitrus3D?.initExerciseViewer) {
