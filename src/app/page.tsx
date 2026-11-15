@@ -18,14 +18,14 @@ export default async function HomePage() {
     <>
       <section className="relative min-h-[100svh] overflow-hidden">
         <div className="hero-stage absolute inset-0" />
-        <div className="absolute inset-0">
-          <BullionVisual imageKey="bar-1kg" hero className="opacity-90" />
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[58%]">
+          <BullionVisual imageKey="bar-1kg" hero className="opacity-95" />
         </div>
         <div className="hero-scrim absolute inset-0" />
 
         <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-16 pt-32 sm:px-6 sm:pb-20 lg:justify-center lg:pb-24">
           <p className="eyebrow animate-rise text-xl sm:text-2xl">Africa&apos;s Mining Experts</p>
-          <h1 className="animate-rise-delay mt-3 max-w-2xl font-[family-name:var(--font-brand)] text-[clamp(2.8rem,8vw,5.6rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.03em] text-[#f7f3ea]">
+          <h1 className="animate-rise-delay mt-3 max-w-xl font-[family-name:var(--font-brand)] text-[clamp(2.6rem,7vw,4.8rem)] font-extrabold uppercase leading-[0.94] tracking-[-0.02em] text-[#f7f3ea]">
             Kananga
             <br />
             Mining Group

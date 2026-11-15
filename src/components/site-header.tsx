@@ -106,7 +106,7 @@ export function SiteHeader({
           <Link
             href={accountHref}
             className={cn(
-              "whitespace-nowrap px-3.5 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] transition",
+              "inline-flex min-w-[5.5rem] items-center justify-center whitespace-nowrap px-3.5 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition",
               overHero
                 ? "bg-[#f7f3ea] text-[#141414] hover:bg-[#d4af37]"
                 : "bg-[#141414] text-[#f7f3ea] hover:bg-[#a8893a] hover:text-[#141414]",

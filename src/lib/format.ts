@@ -26,5 +26,6 @@ export function purityLabel(purity: number): string {
   const pct = purity * 100;
   if (Math.abs(pct - 99.99) < 0.01) return "999.9";
   if (Math.abs(pct - 99.9) < 0.05) return "999";
-  return pct.toFixed(2);
+  if (Math.abs(pct - 91.67) < 0.1) return "22K";
+  return `${pct.toFixed(1)}%`;
 }
