@@ -1,0 +1,17 @@
+import { chromium } from "playwright";
+import { mkdir } from "fs/promises";
+await mkdir("/opt/cursor/artifacts", { recursive: true });
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+await page.goto("http://127.0.0.1:3000/", { waitUntil: "networkidle" });
+await page.screenshot({ path: "/opt/cursor/artifacts/kananga-home-v2.png", fullPage: false });
+await page.goto("http://127.0.0.1:3000/products", { waitUntil: "networkidle" });
+await page.screenshot({ path: "/opt/cursor/artifacts/kananga-products-v2.png", fullPage: false });
+await page.goto("http://127.0.0.1:3000/products/1-oz-gold-bar", { waitUntil: "networkidle" });
+await page.getByRole("button", { name: /Add/i }).click();
+await page.waitForTimeout(400);
+await page.screenshot({ path: "/opt/cursor/artifacts/kananga-pdp-v2.png", fullPage: false });
+await page.goto("http://127.0.0.1:3000/cart", { waitUntil: "networkidle" });
+await page.screenshot({ path: "/opt/cursor/artifacts/kananga-cart-v2.png", fullPage: false });
+console.log("done");
+await browser.close();

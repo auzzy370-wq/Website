@@ -34,35 +34,18 @@ export function DealerForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-8 max-w-lg space-y-3">
-      <input
-        name="companyName"
-        required
-        placeholder="Company name"
-        className="w-full border border-black/15 px-3 py-2.5"
-      />
-      <input
-        name="taxId"
-        placeholder="Tax / business ID"
-        className="w-full border border-black/15 px-3 py-2.5"
-      />
-      <input
-        name="website"
-        placeholder="Website"
-        className="w-full border border-black/15 px-3 py-2.5"
-      />
+    <form onSubmit={onSubmit} className="mt-10 max-w-lg space-y-3">
+      <input name="companyName" required placeholder="Company name" className="field" />
+      <input name="taxId" placeholder="Tax / business ID" className="field" />
+      <input name="website" placeholder="Website" className="field" />
       <textarea
         name="notes"
         rows={4}
         placeholder="Tell us about your bullion business"
-        className="w-full border border-black/15 px-3 py-2.5"
+        className="field"
       />
-      {error && <p className="text-sm text-[#a14a3a]">{error}</p>}
-      <button
-        type="submit"
-        disabled={busy}
-        className="bg-[#111] px-6 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-white disabled:opacity-60"
-      >
+      {error && <p className="text-sm text-[#9a4a3a]">{error}</p>}
+      <button type="submit" disabled={busy} className="btn-primary disabled:opacity-60">
         {busy ? "Submitting…" : "Submit application"}
       </button>
     </form>

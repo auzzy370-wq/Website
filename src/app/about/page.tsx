@@ -2,14 +2,13 @@ export const metadata = { title: "About" };
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <p className="font-[family-name:var(--font-display)] text-xl italic text-[#8a7340]">
-        Africa&apos;s Mining Experts
-      </p>
-      <h1 className="mt-3 font-[family-name:var(--font-brand)] text-4xl font-bold uppercase tracking-wide">
+    <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
+      <p className="eyebrow text-2xl">Africa&apos;s Mining Experts</p>
+      <h1 className="mt-4 font-[family-name:var(--font-brand)] text-4xl font-bold uppercase tracking-[0.04em] sm:text-5xl">
         Kananga Mining Group
       </h1>
-      <div className="mt-8 space-y-5 text-base leading-relaxed text-[#444]">
+      <div className="rule-draw mt-6 h-px w-24 bg-[#a8893a]" />
+      <div className="mt-10 space-y-5 text-[1.05rem] leading-relaxed text-[#4a4a4a]">
         <p>
           Kananga Mining Group supplies physical gold bullion to individuals, advisors, and
           approved wholesale dealers. This storefront is built for transparent spot-plus-premium

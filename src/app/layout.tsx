@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit, Syne } from "next/font/google";
 import { CartProvider } from "@/components/cart-provider";
 import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { SiteHeaderServer } from "@/components/site-header-server";
 import "./globals.css";
 
 const brand = Syne({
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${brand.variable} ${display.variable} ${body.variable} antialiased`}>
         <CartProvider>
           <div className="flex min-h-screen flex-col">
-            <SiteHeader />
+            <SiteHeaderServer />
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>

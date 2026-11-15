@@ -32,51 +32,52 @@ export default async function ProductDetailPage({
   const priced = priceProduct(product, spot.usd_per_oz, accountType);
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2">
-      <BullionVisual imageKey={product.image_key} large className="w-full" />
-      <div className="flex flex-col justify-center">
+    <div className="mx-auto grid max-w-6xl gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:gap-16">
+      <div className="overflow-hidden bg-[#14110e]">
+        <BullionVisual imageKey={product.image_key} large className="w-full" />
+      </div>
+      <div className="flex flex-col justify-center lg:py-6">
         <Link
           href="/products"
-          className="text-[0.7rem] uppercase tracking-[0.16em] text-[#8a7340] hover:text-[#161616]"
+          className="text-[0.68rem] uppercase tracking-[0.18em] text-[#a8893a] transition hover:text-[#141414]"
         >
           ← Catalog
         </Link>
-        <h1 className="mt-4 font-[family-name:var(--font-brand)] text-4xl font-bold uppercase tracking-wide text-[#161616]">
+        <h1 className="mt-5 font-[family-name:var(--font-brand)] text-4xl font-bold uppercase tracking-[0.04em] text-[#141414] sm:text-5xl">
           {product.name}
         </h1>
-        <p className="mt-4 text-base leading-relaxed text-[#555]">{product.description}</p>
+        <p className="mt-5 text-[1.02rem] leading-relaxed text-[#5c5c5c]">{product.description}</p>
 
-        <dl className="mt-8 grid grid-cols-2 gap-4 border-y border-black/10 py-6 text-sm">
+        <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-black/8 py-7 text-sm">
           <div>
-            <dt className="text-[0.65rem] uppercase tracking-[0.14em] text-[#8a7340]">Weight</dt>
-            <dd className="mt-1 text-[#161616]">{formatOz(product.weight_oz)}</dd>
+            <dt className="section-label">Weight</dt>
+            <dd className="mt-1.5 text-[#141414]">{formatOz(product.weight_oz)}</dd>
           </div>
           <div>
-            <dt className="text-[0.65rem] uppercase tracking-[0.14em] text-[#8a7340]">Purity</dt>
-            <dd className="mt-1 text-[#161616]">{purityLabel(product.purity)}</dd>
+            <dt className="section-label">Purity</dt>
+            <dd className="mt-1.5 text-[#141414]">{purityLabel(product.purity)}</dd>
           </div>
           <div>
-            <dt className="text-[0.65rem] uppercase tracking-[0.14em] text-[#8a7340]">Form</dt>
-            <dd className="mt-1 capitalize text-[#161616]">{product.form}</dd>
+            <dt className="section-label">Form</dt>
+            <dd className="mt-1.5 capitalize text-[#141414]">{product.form}</dd>
           </div>
           <div>
-            <dt className="text-[0.65rem] uppercase tracking-[0.14em] text-[#8a7340]">Stock</dt>
-            <dd className="mt-1 text-[#161616]">{product.stock_qty} available</dd>
+            <dt className="section-label">Availability</dt>
+            <dd className="mt-1.5 text-[#141414]">{product.stock_qty} in vault</dd>
           </div>
         </dl>
 
-        <div className="mt-6">
-          <p className="font-[family-name:var(--font-display)] text-4xl text-[#161616]">
+        <div className="mt-8">
+          <p className="font-[family-name:var(--font-display)] text-5xl text-[#141414]">
             {formatUsd(priced.unitPriceCents)}
           </p>
-          <p className="mt-2 text-sm text-[#666]">
-            Based on spot {formatSpot(spot.usd_per_oz)}/oz + ${priced.premiumPerOz.toFixed(0)}/oz{" "}
+          <p className="mt-3 text-sm text-[#6a6a6a]">
+            Spot {formatSpot(spot.usd_per_oz)}/oz + ${priced.premiumPerOz.toFixed(0)}/oz{" "}
             {priced.pricingTier} premium
-            {spot.is_sample ? " (sample spot)" : ""}.
           </p>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-9">
           <AddToCart
             productId={priced.id}
             slug={priced.slug}

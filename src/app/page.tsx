@@ -11,104 +11,99 @@ export default async function HomePage() {
     customer?.account_type === "wholesale" && customer.dealer_status === "approved"
       ? "wholesale"
       : "retail";
-  const { spot, isSample, products } = await priceCatalog(accountType, { featured: true });
+  const { spot, products } = await priceCatalog(accountType, { featured: true });
   const featured = products.slice(0, 4);
 
   return (
     <>
-      <section className="relative min-h-[88vh] overflow-hidden">
-        <div className="hero-grain absolute inset-0" />
-        <div className="absolute inset-y-0 right-0 hidden w-[48%] lg:block">
-          <BullionVisual imageKey="bar-1kg" large className="h-full w-full rounded-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0c0b09] via-transparent to-transparent" />
+      <section className="relative min-h-[100svh] overflow-hidden">
+        <div className="hero-stage absolute inset-0" />
+        <div className="absolute inset-0">
+          <BullionVisual imageKey="bar-1kg" hero className="opacity-90" />
         </div>
+        <div className="hero-scrim absolute inset-0" />
 
-        <div className="relative mx-auto flex min-h-[88vh] max-w-6xl flex-col justify-center px-4 py-20 sm:px-6">
-          <p className="animate-rise font-[family-name:var(--font-display)] text-xl italic text-[#d4af37] sm:text-2xl">
-            Africa&apos;s Mining Experts
-          </p>
-          <h1 className="animate-rise-delay mt-3 max-w-xl font-[family-name:var(--font-brand)] text-5xl font-extrabold uppercase leading-[0.95] tracking-[-0.02em] text-[#f5f2ea] sm:text-6xl md:text-7xl">
+        <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-16 pt-32 sm:px-6 sm:pb-20 lg:justify-center lg:pb-24">
+          <p className="eyebrow animate-rise text-xl sm:text-2xl">Africa&apos;s Mining Experts</p>
+          <h1 className="animate-rise-delay mt-3 max-w-2xl font-[family-name:var(--font-brand)] text-[clamp(2.8rem,8vw,5.6rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.03em] text-[#f7f3ea]">
             Kananga
             <br />
             Mining Group
           </h1>
-          <p className="animate-rise-delay-2 mt-6 max-w-md text-base leading-relaxed text-[#cfc6b4] sm:text-lg">
+          <div className="rule-draw mt-6 h-px w-28 bg-[#d4af37]" />
+          <p className="animate-rise-delay-2 mt-6 max-w-md text-[1.05rem] leading-relaxed text-[#d5cdb8]">
             Physical gold bullion priced from live spot — bars and coins, insured delivery, and
             approved wholesale accounts.
           </p>
-          <div className="animate-rise-delay-2 mt-8 flex flex-wrap items-center gap-4">
-            <Link
-              href="/products"
-              className="bg-[#d4af37] px-7 py-3.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-[#111] transition hover:bg-[#f0d78c]"
-            >
+          <div className="animate-rise-delay-2 mt-9 flex flex-wrap items-center gap-3">
+            <Link href="/products" className="btn-gold">
               Shop bullion
             </Link>
-            <Link
-              href="/dealer"
-              className="border border-[#d4af37]/40 px-7 py-3.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-[#f5f2ea] transition hover:border-[#d4af37] hover:text-[#d4af37]"
-            >
+            <Link href="/dealer" className="btn-ghost">
               Dealer access
             </Link>
           </div>
-          <div className="animate-rise-delay-2 mt-10 flex items-end gap-6">
+          <div className="animate-rise-delay-3 mt-12 flex items-end gap-8 border-t border-white/10 pt-6">
             <div>
-              <p className="text-[0.65rem] uppercase tracking-[0.2em] text-[#8a7340]">Gold spot</p>
-              <p className="font-[family-name:var(--font-display)] text-4xl text-[#f5f2ea]">
+              <p className="section-label text-[#e8d5a3]">Gold spot</p>
+              <p className="mt-1 font-[family-name:var(--font-display)] text-4xl text-[#f7f3ea] sm:text-5xl">
                 {formatSpot(spot)}
                 <span className="ml-2 text-base text-[#9a9386]">/oz</span>
               </p>
-              {isSample && (
-                <p className="mt-1 text-xs text-[#8a7340]">Sample spot data until API key is set</p>
-              )}
             </div>
-            <div className="pulse-rule mb-2 h-px w-24 bg-[#d4af37]" />
+            <p className="mb-1 max-w-[14rem] text-xs leading-relaxed text-[#9a9386]">
+              Transparent spot-plus-premium pricing on every SKU.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+      <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-[0.7rem] uppercase tracking-[0.2em] text-[#8a7340]">Featured</p>
-            <h2 className="mt-2 font-[family-name:var(--font-brand)] text-3xl font-bold uppercase tracking-wide text-[#161616]">
+            <p className="section-label">Featured allocation</p>
+            <h2 className="mt-3 font-[family-name:var(--font-brand)] text-3xl font-bold uppercase tracking-[0.04em] text-[#141414] sm:text-4xl">
               Selected bullion
             </h2>
           </div>
           <Link
             href="/products"
-            className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#8a7340] hover:text-[#161616]"
+            className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#a8893a] transition hover:text-[#141414]"
           >
             View full catalog →
           </Link>
         </div>
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
       </section>
 
-      <section className="border-y border-black/8 bg-[#ecece8]">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-3">
+      <section className="border-y border-black/6 bg-[#ebe9e4]/70">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-3 md:gap-10">
           {[
             {
               title: "Spot + premium",
-              body: "Every SKU prices from gold spot plus a published retail or wholesale premium — no opaque markups.",
+              body: "Every SKU prices from gold spot plus a published retail or wholesale premium — clear, auditable markups.",
             },
             {
               title: "Insured fulfillment",
-              body: "Express and standard shipping with insurance workflows aligned to your vaulting and delivery policy.",
+              body: "Express and standard shipping with insurance workflows aligned to vaulting and delivery policy.",
             },
             {
               title: "Dealer desks",
               body: "Approved wholesale accounts unlock tighter premiums and dedicated order handling.",
             },
-          ].map((item) => (
-            <div key={item.title}>
-              <h3 className="font-[family-name:var(--font-brand)] text-sm font-bold uppercase tracking-[0.16em] text-[#161616]">
+          ].map((item, i) => (
+            <div key={item.title} className="relative md:pl-0">
+              <p className="font-[family-name:var(--font-display)] text-5xl text-[#a8893a]/25">
+                0{i + 1}
+              </p>
+              <h3 className="mt-2 font-[family-name:var(--font-brand)] text-sm font-bold uppercase tracking-[0.18em] text-[#141414]">
                 {item.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#555]">{item.body}</p>
+              <p className="mt-3 text-sm leading-relaxed text-[#5c5c5c]">{item.body}</p>
             </div>
           ))}
         </div>

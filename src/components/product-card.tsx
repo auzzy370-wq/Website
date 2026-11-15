@@ -8,32 +8,34 @@ export function ProductCard({ product }: { product: PricedProduct }) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b8963e]"
+      className="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a8893a]"
     >
-      <BullionVisual
-        imageKey={product.image_key}
-        className="transition duration-500 group-hover:brightness-110"
-      />
-      <div className="mt-4 space-y-1.5">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="font-[family-name:var(--font-brand)] text-[0.95rem] font-semibold uppercase tracking-[0.06em] text-[#161616]">
+      <div className="overflow-hidden">
+        <BullionVisual
+          imageKey={product.image_key}
+          className="transition duration-700 ease-out group-hover:scale-[1.03] group-hover:brightness-110"
+        />
+      </div>
+      <div className="mt-5 space-y-2">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="font-[family-name:var(--font-brand)] text-[0.9rem] font-semibold uppercase tracking-[0.08em] text-[#141414] transition group-hover:text-[#8a6f28]">
             {product.name}
           </h3>
           <span
-            className={`shrink-0 text-[0.65rem] uppercase tracking-[0.14em] ${inStock ? "text-[#5a7a45]" : "text-[#a14a3a]"}`}
+            className={`shrink-0 text-[0.62rem] uppercase tracking-[0.16em] ${inStock ? "text-[#5a6f48]" : "text-[#9a4a3a]"}`}
           >
-            {inStock ? "In stock" : "Sold out"}
+            {inStock ? "Available" : "Sold out"}
           </span>
         </div>
-        <p className="text-sm text-[#666]">
-          {formatOz(product.weight_oz)} · {purityLabel(product.purity)} fine · {product.form}
+        <p className="text-[0.85rem] text-[#6a6a6a]">
+          {formatOz(product.weight_oz)} · {purityLabel(product.purity)} · {product.form}
         </p>
-        <p className="font-[family-name:var(--font-display)] text-2xl text-[#161616]">
+        <p className="font-[family-name:var(--font-display)] text-[1.85rem] leading-none text-[#141414]">
           {formatUsd(product.unitPriceCents)}
         </p>
-        <p className="text-xs uppercase tracking-[0.12em] text-[#8a7340]">
+        <p className="text-[0.65rem] uppercase tracking-[0.14em] text-[#a8893a]">
           Spot + ${product.premiumPerOz.toFixed(0)}/oz{" "}
-          {product.pricingTier === "wholesale" ? "wholesale" : "retail"} premium
+          {product.pricingTier === "wholesale" ? "wholesale" : "retail"}
         </p>
       </div>
     </Link>
