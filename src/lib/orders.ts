@@ -21,10 +21,15 @@ export type CheckoutInput = {
   };
 };
 
-export async function placeOrder(input: CheckoutInput, customer: Customer | null) {
+/**
+ * Creates an order for an authenticated customer.
+ * Without a configured payment provider, orders stay `pending_payment`
+ * and inventory is not reduced until payment is confirmed.
+ */
+export async function placeOrder(input: CheckoutInput, customer: Customer) {
   const spot = await getGoldSpot();
   const accountType: AccountType =
-    customer?.account_type === "wholesale" && customer.dealer_status === "approved"
+    customer.account_type === "wholesale" && customer.dealer_status === "approved"
       ? "wholesale"
       : "retail";
 
@@ -63,21 +68,26 @@ export async function placeOrder(input: CheckoutInput, customer: Customer | null
   const { shippingCents, insuranceCents } = shippingQuote(method, totalOz, subtotalCents);
   const totalCents = subtotalCents + shippingCents + insuranceCents;
 
+  // Hold as pending payment without touching inventory until a payment provider
+  // confirms capture (Stripe wiring reserved; no auto-paid mock path).
+  const status = "pending_payment";
+  const paymentProvider = process.env.STRIPE_SECRET_KEY?.trim() ? "stripe" : "unconfigured";
+
   const orderId = nanoid();
   const orderNumber = `KMG-${Date.now().toString(36).toUpperCase()}`;
-  const paymentRef = `mock_${nanoid(10)}`;
 
   await sql(
     `insert into orders
      (id, order_number, customer_id, email, full_name, account_type, status, subtotal_cents, shipping_cents, insurance_cents, total_cents, spot_gold_usd, shipping_method, shipping_address, payment_provider, payment_ref)
-     values ($1,$2,$3,$4,$5,$6,'paid',$7,$8,$9,$10,$11,$12,$13,'mock',$14)`,
+     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,null)`,
     [
       orderId,
       orderNumber,
-      customer?.id ?? null,
+      customer.id,
       input.email.toLowerCase().trim(),
       input.fullName.trim(),
       accountType,
+      status,
       subtotalCents,
       shippingCents,
       insuranceCents,
@@ -85,7 +95,7 @@ export async function placeOrder(input: CheckoutInput, customer: Customer | null
       spot.usd_per_oz,
       method.id,
       JSON.stringify(input.address),
-      paymentRef,
+      paymentProvider,
     ],
   );
 
@@ -104,10 +114,6 @@ export async function placeOrder(input: CheckoutInput, customer: Customer | null
         line.premiumPerOz,
       ],
     );
-    await sql("update products set stock_qty = stock_qty - $1 where id = $2", [
-      line.quantity,
-      line.productId,
-    ]);
   }
 
   return {
@@ -117,9 +123,30 @@ export async function placeOrder(input: CheckoutInput, customer: Customer | null
     subtotalCents,
     shippingCents,
     insuranceCents,
-    paymentRef,
-    status: "paid" as const,
+    paymentRef: null as string | null,
+    status: status as "pending_payment",
+    paymentProvider,
+    message:
+      "Order saved as pending payment. Inventory is held until a payment provider confirms capture.",
   };
+}
+
+/** Atomically decrement stock when payment is confirmed. */
+export async function reserveInventory(
+  items: { productId: string; quantity: number }[],
+): Promise<void> {
+  for (const item of items) {
+    const rows = await sql<{ id: string }>(
+      `update products
+       set stock_qty = stock_qty - $1
+       where id = $2 and stock_qty >= $1 and active = true
+       returning id`,
+      [item.quantity, item.productId],
+    );
+    if (!rows[0]) {
+      throw new Error("Insufficient stock to fulfill order");
+    }
+  }
 }
 
 export async function listOrdersForCustomer(customerId: string) {

@@ -20,9 +20,24 @@ const schema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const body = schema.parse(await request.json());
     const customer = await getCurrentCustomer();
-    const order = await placeOrder(body, customer);
+    if (!customer) {
+      return NextResponse.json(
+        { error: "Sign in required to place an order" },
+        { status: 401 },
+      );
+    }
+
+    const body = schema.parse(await request.json());
+    // Bind order identity to the signed-in customer (ignore spoofed email/name).
+    const order = await placeOrder(
+      {
+        ...body,
+        email: customer.email,
+        fullName: customer.full_name,
+      },
+      customer,
+    );
     return NextResponse.json(order);
   } catch (error) {
     return NextResponse.json(

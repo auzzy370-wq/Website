@@ -25,14 +25,10 @@ export async function POST(request: Request) {
     }
 
     const body = schema.parse(await request.json());
-    // Demo storefront auto-approves so wholesale pricing can be verified end-to-end.
-    // Production should leave status pending for desk review.
-    const autoApprove = process.env.DEALER_REQUIRE_REVIEW !== "true";
-    const status = autoApprove ? "approved" : "pending";
 
     await sql(
       `insert into dealer_applications (id, customer_id, company_name, tax_id, website, notes, status)
-       values ($1,$2,$3,$4,$5,$6,$7)`,
+       values ($1,$2,$3,$4,$5,$6,'pending')`,
       [
         nanoid(),
         customer.id,
@@ -40,18 +36,17 @@ export async function POST(request: Request) {
         body.taxId ?? null,
         body.website ?? null,
         body.notes ?? null,
-        status,
       ],
     );
 
     await sql(
       `update customers
-       set dealer_status = $1, account_type = $2, company_name = $3
-       where id = $4`,
-      [status, autoApprove ? "wholesale" : customer.account_type, body.companyName, customer.id],
+       set dealer_status = 'pending', company_name = $1
+       where id = $2`,
+      [body.companyName, customer.id],
     );
 
-    return NextResponse.json({ status });
+    return NextResponse.json({ status: "pending" });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Application failed" },

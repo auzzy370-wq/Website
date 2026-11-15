@@ -56,10 +56,18 @@ export function CheckoutClient({
           items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
         }),
       });
-      const data = (await res.json()) as { error?: string; orderNumber?: string };
+      const data = (await res.json()) as {
+        error?: string;
+        orderNumber?: string;
+        status?: string;
+      };
+      if (res.status === 401) {
+        router.push("/login?next=/checkout");
+        return;
+      }
       if (!res.ok) throw new Error(data.error || "Checkout failed");
       clear();
-      router.push(`/account/orders?placed=${data.orderNumber}`);
+      router.push(`/account/orders?placed=${data.orderNumber}&status=${data.status ?? "pending_payment"}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Checkout failed");
       setBusy(false);
@@ -157,8 +165,9 @@ export function CheckoutClient({
           Payment
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-[#666]">
-          Checkout uses a mock payment provider until a bullion-approved merchant account is
-          connected (Stripe or equivalent). No real charges are made.
+          Orders are saved as pending payment until a bullion-approved payment provider is
+          connected. Inventory is not reduced until payment is confirmed. No charges are taken
+          here.
         </p>
         <dl className="mt-6 space-y-2 text-sm">
           <div className="flex justify-between">
@@ -186,7 +195,7 @@ export function CheckoutClient({
           disabled={busy}
           className="mt-6 w-full bg-[#111] px-4 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-white disabled:opacity-60"
         >
-          {busy ? "Placing order…" : "Place order"}
+          {busy ? "Submitting…" : "Submit order request"}
         </button>
       </aside>
     </form>
