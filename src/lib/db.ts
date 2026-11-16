@@ -4,8 +4,6 @@ import { PGlite } from "@electric-sql/pglite";
 import pg from "pg";
 
 const databaseUrl = process.env.DATABASE_URL?.trim() ?? "";
-const onVercel = process.env.VERCEL === "1";
-const duringBuild = process.env.NEXT_PHASE === "phase-production-build";
 let pool: pg.Pool | undefined;
 let local: Promise<PGlite> | undefined;
 
@@ -21,13 +19,8 @@ export async function sql<T = Record<string, unknown>>(
     });
     return (await pool.query(text, params)).rows as T[];
   }
-  // Vercel serverless needs hosted Postgres. Allow the production *build* to finish
-  // without DATABASE_URL so the project can be linked first; fail at request time.
-  if (onVercel && !duringBuild) {
-    throw new Error(
-      "DATABASE_URL is required on Vercel. Add a Neon (or other) Postgres connection string in project env vars.",
-    );
-  }
+  // Fallback for local + temporary Vercel deploys without Neon.
+  // Data does not persist across serverless cold starts — set DATABASE_URL for production.
   local ??= startLocal().catch((error: unknown) => {
     local = undefined;
     throw error;
