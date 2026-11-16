@@ -24,6 +24,8 @@ const body = Outfit({
   variable: "--font-body",
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     default: "Kananga Mining Group | Africa's Mining Experts",
