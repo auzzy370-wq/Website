@@ -4,6 +4,7 @@ import { PGlite } from "@electric-sql/pglite";
 import pg from "pg";
 
 const databaseUrl = process.env.DATABASE_URL?.trim() ?? "";
+const onVercel = process.env.VERCEL === "1";
 let pool: pg.Pool | undefined;
 let local: Promise<PGlite> | undefined;
 
@@ -12,8 +13,17 @@ export async function sql<T = Record<string, unknown>>(
   params: unknown[] = [],
 ): Promise<T[]> {
   if (databaseUrl !== "") {
-    pool ??= new pg.Pool({ connectionString: databaseUrl, max: 5 });
+    pool ??= new pg.Pool({
+      connectionString: databaseUrl,
+      max: 5,
+      ssl: databaseUrl.includes("sslmode=disable") ? undefined : { rejectUnauthorized: false },
+    });
     return (await pool.query(text, params)).rows as T[];
+  }
+  if (onVercel) {
+    throw new Error(
+      "DATABASE_URL is required on Vercel. Add a Neon (or other) Postgres connection string in project env vars.",
+    );
   }
   local ??= startLocal().catch((error: unknown) => {
     local = undefined;

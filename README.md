@@ -11,30 +11,48 @@ Custom gold bullion e-commerce storefront for **Kananga Mining Group** — Afric
 - Pending-payment checkout until a payment provider is connected (no stock decrement)
 - Shipping + insurance options (carrier API-ready)
 - Dealer / wholesale applications pending desk approval
-- Postgres in production (`cursor-app.json`); PGlite locally when `DATABASE_URL` is unset
+- Postgres in production; PGlite locally when `DATABASE_URL` is unset
 
-## Quick start
+## Quick start (local)
 
 ```bash
+cp .env.example .env
 npm install
-# Important: do not inherit another project's DATABASE_URL
+# Do not inherit another project's DATABASE_URL
 env -u DATABASE_URL npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Deploy on Vercel
+
+Full guide: **[docs/VERCEL.md](docs/VERCEL.md)**.
+
+You need a Neon (or other) Postgres `DATABASE_URL`, then:
+
+```bash
+vercel login && vercel link
+vercel env add DATABASE_URL
+vercel env add NEXT_PUBLIC_APP_URL
+vercel --prod
+```
+
+Or import `auzzy370-wq/Website` from [vercel.com/new](https://vercel.com/new) and set the same env vars (enable `DATABASE_URL` for **Build** so migrations run).
+
 ## Environment
 
 | Variable | Purpose |
 |----------|---------|
-| `DATABASE_URL` | Postgres (set automatically on Cursor publish) |
+| `DATABASE_URL` | Postgres (required on Vercel) |
+| `DATABASE_URL_UNPOOLED` | Optional direct URL for migrations |
+| `NEXT_PUBLIC_APP_URL` | Public site URL |
 | `GOLD_API_KEY` | Optional live XAU/USD from goldapi.io |
-| `DEALER_ADMIN_SECRET` | Required to approve/reject dealer apps via `POST /api/dealer/approve` |
+| `DEALER_ADMIN_SECRET` | Approve/reject dealer apps via `POST /api/dealer/approve` |
 | `STRIPE_SECRET_KEY` | Reserved for live payment capture wiring |
 
 ## Dealer approval
 
-Applications always stay **pending** until the desk approves them:
+Applications stay **pending** until the desk approves them:
 
 ```bash
 curl -X POST "$APP_URL/api/dealer/approve" \

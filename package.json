@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack -p 3000",
     "build": "next build && node scripts/migrate.mjs",
+    "vercel-build": "next build && node scripts/migrate.mjs",
     "start": "next start -p 3000",
     "lint": "eslint",
     "migrate": "node scripts/migrate.mjs"
